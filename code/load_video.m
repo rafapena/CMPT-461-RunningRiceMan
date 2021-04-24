@@ -1,0 +1,14 @@
+function [ mov ] = loadVid( path )
+
+data = VideoReader(path);
+nFrames = data.NumFrames;
+vidHeight = data.Height;
+vidWidth = data.Width;
+
+%Preallocate movie structure.
+mov(1:nFrames) = struct('cdata', zeros(vidHeight, vidWidth, 3, 'uint8'), 'colormap', []);
+
+%Read one frame at a time.
+for k = 1 : nFrames
+      mov(k).cdata = read(data, k);
+end
